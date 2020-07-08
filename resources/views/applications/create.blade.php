@@ -12,16 +12,16 @@
 
                             @if (session()->has('added'))
                                 @if (session('added') === true)
-                                    <div class="alert alert-success" role="alert">
+                                    <div id="status" class="alert alert-success" role="alert">
                                         Ваша заявка успешно добавлена!
                                     </div>
                                 @else
-                                    <div class="alert alert-danger" role="alert">
+                                    <div id="status" class="alert alert-danger" role="alert">
                                         Вы можете оставлять заявку только раз в сутки.
                                     </div>
                                 @endif
                             @else
-                                <div class="alert alert-primary" role="alert">
+                                <div id="status" class="alert alert-primary" role="alert">
                                     Оставьте вашу заявку.
                                 </div>
                             @endif
