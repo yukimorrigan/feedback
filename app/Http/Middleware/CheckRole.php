@@ -17,19 +17,26 @@ class CheckRole
     {
         /*TODO система ролей пользователей*/
         /*при попытке сохранения записи пользователей, автоматическая переадресация на страницу create!!*/
-/*        # если менеджер
+
+        # предыдущий роут
+        #$priviousRouteName = app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();
+
+        $currentRouteName = $request->route()->getName();
+
+        # если менеджер
         if ($request->user()->hasRole($role)) {
             # не подпускать менеджера к странице создания заявок
-            if ($request->path() === 'application/create') {
+            if ($currentRouteName === 'application.create') {
                 return redirect()->route('application.index');
             }
         } else {
             # Если пользователь не на странице создания
-            if (($request->path() != 'application/create')) {
+            if ($currentRouteName !== 'application.create' && $currentRouteName !== 'application.store') {
                 # redirect на страницу создания
                 return redirect()->route('application.create');
             }
-        }*/
+        }
+
         # разрешить доступ к странице
         return $next($request);
     }
