@@ -12,7 +12,7 @@ class Application extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'title', 'message', 'file',
+        'user_id', 'subject', 'message', 'file',
     ];
 
     public function user() {

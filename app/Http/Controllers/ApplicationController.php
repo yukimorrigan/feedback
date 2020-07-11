@@ -37,24 +37,48 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
+        # если с момента создания заявки не прошло 24 часа
         if (! $request->user()->canCreate()) {
+            # запись не добавляется
             $request->session()->flash('added', false);
             return redirect()->route('application.create');
         }
 
+        # валидация
         $validator = $request->validate([
             'user_id' => 'required|int',
-            'title' => 'required|string|max:255',
+            'subject' => 'required|string|max:255',
             'message' => 'required',
             'file' => 'required|file|max:1024|mimes:pdf,doc,docx',
         ]);
 
-        $application = Application::create($request->all());
-        $request->session()->flash('added', true);
-        return redirect()->route('application.create');
-
         # путь к загруженному файлу
-        #$path = $request->file('file')->store('uploads', 'public');
+        $path = $request->file('file')->store('uploads', 'public');
+
+        # добавление в базу данных
+        $application = Application::create([
+            'user_id' => $request->input('user_id'),
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+            'file' => asset('/storage/' . $path),
+        ]);
+        # последняя добавленная в бд запись
+        $last = $application->latest()->first();
+
+        # запись успешно добавлена
+        $request->session()->flash('added', true);
+
+        # отправка email
+        dispatch(new \App\Jobs\SendEmailJob($last));
+
+        # отправка email
+/*        $details['email'] = config('mail.to.address');
+        $details['subject'] = $request->input('title');
+        $details['message'] = $request->input('message');
+        $details['file'] = asset('/storage/' . $path);
+        dispatch(new \App\Jobs\SendEmailJob($details));*/
+
+        return redirect()->route('application.create');
     }
 
     /**

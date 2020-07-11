@@ -19,7 +19,7 @@ class CreateApplicationsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
-            $table->string('title');
+            $table->string('subject');
             $table->text('message');
             $table->text('file');
             $table->timestamps();

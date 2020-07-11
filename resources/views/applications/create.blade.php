@@ -38,9 +38,9 @@
 
                             <div class="form-group">
                                 <label for="inlineFormInputTitle">Тема</label>
-                                <input name="title" type="text" class="form-control @error('title') is-invalid @enderror"
+                                <input name="subject" type="text" class="form-control @error('subject') is-invalid @enderror"
                                     id="inlineFormInputTitle" placeholder="Тема" required
-                                    value="@if(old('title')){{old('title')}}@else{{$application->title ?? ''}}@endif">
+                                    value="@if(old('subject')){{old('subject')}}@else{{$application->subject ?? ''}}@endif">
                             </div>
 
                             <div class="form-group">

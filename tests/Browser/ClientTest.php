@@ -26,13 +26,13 @@ class ClientTest extends DuskTestCase
                 ->visit(route('application.create'))
                 ->assertSeeIn('#status', 'Оставьте вашу заявку.');
             # отправить форму
-            $browser->type('title', 'Title')
+            $browser->type('subject', 'Subject')
                 ->type('message', 'Message')
                 ->attach('file', __DIR__.'/files/resume.docx')
                 ->press('Отправить')
                 ->assertSeeIn('#status', 'Ваша заявка успешно добавлена!');
             # пробуем отправить еще раз
-            $browser->type('title', 'Title')
+            $browser->type('subject', 'Subject')
                 ->type('message', 'Message')
                 ->attach('file', __DIR__.'/files/resume.docx')
                 ->press('Отправить')
