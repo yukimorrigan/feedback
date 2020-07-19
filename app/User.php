@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
-        return User::where('role', $role)->get()->count();
+        return $this->role === $role;
     }
 
     /*пользователь может создавать заявки*/

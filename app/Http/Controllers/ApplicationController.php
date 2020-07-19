@@ -14,7 +14,11 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        return view('applications.index', ['applications' => Application::paginate(10)]);
+        return view('applications.index',
+            [
+                'applications' => Application::orderBy('marked', 'asc')
+                    ->paginate(Application::SHOW_BY_DEFAULT)
+            ]);
     }
 
     /**
@@ -71,13 +75,6 @@ class ApplicationController extends Controller
         # отправка email
         dispatch(new \App\Jobs\SendEmailJob($last));
 
-        # отправка email
-/*        $details['email'] = config('mail.to.address');
-        $details['subject'] = $request->input('title');
-        $details['message'] = $request->input('message');
-        $details['file'] = asset('/storage/' . $path);
-        dispatch(new \App\Jobs\SendEmailJob($details));*/
-
         return redirect()->route('application.create');
     }
 
@@ -112,7 +109,10 @@ class ApplicationController extends Controller
      */
     public function update(Request $request, Application $application)
     {
-        //
+        $marked = $request->input('marked');
+        $application->marked = $marked;
+        $application->save();
+        return $application->marked;
     }
 
     /**

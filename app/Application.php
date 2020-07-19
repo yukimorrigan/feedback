@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
+    // сколько заявок выводить на одной странице
+    const SHOW_BY_DEFAULT = 5;
     /**
      * The attributes that are mass assignable.
      *

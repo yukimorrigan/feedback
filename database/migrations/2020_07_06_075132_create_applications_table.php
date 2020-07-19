@@ -22,6 +22,7 @@ class CreateApplicationsTable extends Migration
             $table->string('subject');
             $table->text('message');
             $table->text('file');
+            $table->boolean('marked')->default(false);
             $table->timestamps();
         });
     }

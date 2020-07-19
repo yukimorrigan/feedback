@@ -11,7 +11,7 @@ class ClientTest extends DuskTestCase
 {
     use DatabaseMigrations;
     /**
-     * A Dusk test example.
+     * Create Application test.
      *
      * @return void
      */

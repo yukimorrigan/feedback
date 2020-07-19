@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('file-component', require('./components/FileComponent.vue').default);
+Vue.component('table-row-component', require('./components/TableRowComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
